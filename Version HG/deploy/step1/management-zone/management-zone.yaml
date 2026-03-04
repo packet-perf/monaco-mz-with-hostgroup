@@ -1,0 +1,19 @@
+configs:
+- id: management-zone
+  type:
+    settings:
+      schema: builtin:management-zones
+      scope: environment
+  config:
+    template: mz-namespace.json 
+    name: "{{ .monHostGroup }}"
+    parameters:
+      monHostGroup:
+        type: environment
+        name: monHostGroup
+      monDomaine:
+        type: environment
+        name: monDomaine
+      monEntityName:
+        type: environment
+        name: monEntityName

@@ -1,0 +1,91 @@
+{
+  "name": "HG - {{ .monHostGroup }}",
+  "description": "Zone basée sur le Host Group {{ .monHostGroup }} et les entités nommées {{ .monEntityName }}",
+  "rules": [
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\"))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\")))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"APPLICATION\"),fromRelationship.calls(type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\"))))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"CUSTOM_APPLICATION\"),fromRelationship.calls(type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\"))))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"MOBILE_APPLICATION\"),fromRelationship.calls(type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\"))))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"APPLICATION\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"CUSTOM_APPLICATION\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"MOBILE_APPLICATION\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"HTTP_CHECK\"),fromRelationship.monitors(type(\"APPLICATION\"),fromRelationship.calls(type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\")))))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"SYNTHETIC_TEST\"),fromRelationship.monitors(type(\"APPLICATION\"),fromRelationship.calls(type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\")))))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"HTTP_CHECK\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"SYNTHETIC_TEST\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"MULTIPROTOCOL_MONITOR\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"EXTERNAL_SYNTHETIC_TEST\"),entityName.equals(\"{{ .monEntityName }}\")"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"CUSTOM_DEVICE\"),toRelationship.runsOnResource(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\"))"
+    },
+    {
+      "enabled": true,
+      "type": "SELECTOR",
+      "entitySelector": "type(\"SERVICE\"),tag(\"External_Service\"),toRelationship.calls(type(\"SERVICE\"),fromRelationship.runsOn(type(\"PROCESS_GROUP\"),fromRelationship.runsOn(type(\"HOST\"),hostGroupName(\"{{ .monHostGroup }}\"))))"
+    }
+  ]
+}

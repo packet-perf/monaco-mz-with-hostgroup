@@ -1,0 +1,24 @@
+manifestVersion: "1.0"
+
+projects:
+  - name: step1
+    path: deploy/step1
+  - name: step2-withoutsynth
+    path: deploy/step2-withoutsynth
+  - name: step2-withsynth
+    path: deploy/step2-withsynth
+
+environmentGroups:
+  - name: MHIS
+    environments:
+      - name: MHIS.Prod
+        url: "https://mdc72389.live.dynatrace.com"
+        auth:
+          token:
+            name: MHIS_Token_Prod
+
+      - name: MHIS.Horsprod
+        url: "https://mdc72389.live.dynatrace.com"
+        auth:
+          token:
+            name: MHIS_Token_PreProd
